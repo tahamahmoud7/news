@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:news/screens/tap_controller.dart';
-import '../models/SourcesResponse.dart';
-import '../shared/network/remote/api_manager.dart';
+import 'package:news/models/categorieyData.dart';
+import '../screens/Drawar_screen.dart';
+import '../screens/categories.dart';
+import '../screens/home_screen.dart';
+import 'details/news_search.dart';
+class Home extends StatefulWidget {
+  static const String routeName = "Home";
 
-class HomeScreen extends StatelessWidget {
-  static const String routeName = "HomeScreen";
+  @override
+  State<Home> createState() => _HomeScreenState();
+}
 
+class _HomeScreenState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,34 +21,44 @@ class HomeScreen extends StatelessWidget {
               image: AssetImage("assets/images/pattern.png"),
               fit: BoxFit.cover)),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-            backgroundColor: const Color.fromRGBO(57, 165, 82, 1.0),
-            shape: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.transparent),
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(30),
-                    bottomLeft: Radius.circular(
-                      30,
-                    ))),
-            title: const Text("News")),
-        body: FutureBuilder<SourcesResponse>(
-          future: ApiManager.getSources(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (snapshot.hasError) {
-              return Text(snapshot.data?.message ?? "");
-            }
-            if (snapshot.data?.status != "ok") {
-              return Center(child: Text(snapshot.data!.message!));
-            }
-            var sources = snapshot.data?.sources ?? [];
-            return TapControllerScreen(sources);
-          },
-        ),
-      ),
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            actions: [IconButton(onPressed: (){
+            showSearch(context: context, delegate: NewsSearch(
+            ));
+              
+            }, icon: Icon(Icons.search))],
+              backgroundColor: const Color.fromRGBO(57, 165, 82, 1.0),
+              shape: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.transparent),
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(30),
+                      bottomLeft: Radius.circular(
+                        30,
+                      ))),
+              title: const Text("News")),
+          drawer: DrawarScreen(OnDrawarSelected),
+          body: categoryData == null
+              ? CategoriesScreen(onCategorySelected)
+              : HomeScreen(categoryData!)),
     );
+  }
+
+  CategoryData? categoryData = null;
+
+  void OnDrawarSelected(number) {
+    if (number == DrawarScreen.CATEGORIES) {
+      categoryData = null;
+    } else if (number ==DrawarScreen.SETTINGS) {
+//open setting screen
+    }
+    setState(() {
+      Navigator.pop(context);
+    });
+  }
+
+  void onCategorySelected(categorySelected) {
+    categoryData = categorySelected;
+    setState(() {});
   }
 }

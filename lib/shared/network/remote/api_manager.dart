@@ -8,9 +8,9 @@ import '../../styles/constasnts/constants.dart';
 class ApiManager {
 
 
-  static Future<SourcesResponse> getSources() async {
+  static Future<SourcesResponse> getSources(String category) async {
     var URL = Uri.https(BASE, "v2/top-headlines/sources",
-        {"apiKey": APIKEY});
+        {"apiKey": APIKEY,"category":category});
 
     Response? sources;
     try {
