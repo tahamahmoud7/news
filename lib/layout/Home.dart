@@ -4,6 +4,7 @@ import '../screens/Drawar_screen.dart';
 import '../screens/categories.dart';
 import '../screens/home_screen.dart';
 import 'details/news_search.dart';
+
 class Home extends StatefulWidget {
   static const String routeName = "Home";
 
@@ -23,11 +24,13 @@ class _HomeScreenState extends State<Home> {
       child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            actions: [IconButton(onPressed: (){
-            showSearch(context: context, delegate: NewsSearch(
-            ));
-              
-            }, icon: Icon(Icons.search))],
+              actions: [
+                IconButton(
+                    onPressed: () {
+                      showSearch(context: context, delegate: NewsSearch());
+                    },
+                    icon: const Icon(Icons.search))
+              ],
               backgroundColor: const Color.fromRGBO(57, 165, 82, 1.0),
               shape: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.transparent),
@@ -49,7 +52,7 @@ class _HomeScreenState extends State<Home> {
   void OnDrawarSelected(number) {
     if (number == DrawarScreen.CATEGORIES) {
       categoryData = null;
-    } else if (number ==DrawarScreen.SETTINGS) {
+    } else if (number == DrawarScreen.SETTINGS) {
 //open setting screen
     }
     setState(() {
