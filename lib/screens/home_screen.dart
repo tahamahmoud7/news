@@ -1,35 +1,44 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:news/models/SourcesResponse.dart';
 import 'package:news/models/categorieyData.dart';
 import 'package:news/screens/tap_controller.dart';
-
-import '../models/SourcesResponse.dart';
 import '../shared/network/remote/api_manager.dart';
 
 class HomeScreen extends StatelessWidget {
+  CategoryData categoryData;
 
-CategoryData categoryData;
-
-HomeScreen(this.categoryData);
+  HomeScreen(this.categoryData);
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<SourcesResponse>(
-      future: ApiManager.getSources(categoryData.id),
+      future: ApiManager.getSources(categoryData.id,context),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+              child: CircularProgressIndicator(
+            color: Colors.black,
+          ));
         }
         if (snapshot.hasError) {
-          return Text(snapshot.data?.message ?? "");
+          return Column(
+            children: [
+              Text(snapshot.data?.message ?? "Has Error"),
+              TextButton(onPressed: () {}, child: const Text("Try Again"))
+            ],
+          );
         }
         if (snapshot.data?.status != "ok") {
-          return Center(child: Text(snapshot.data!.message!));
+          Column(
+            children: [
+              Text(snapshot.data?.message ?? "Has Error"),
+              TextButton(onPressed: () {}, child: const Text("Try Again"))
+            ],
+          );
         }
         var sources = snapshot.data?.sources ?? [];
         return TapControllerScreen(sources);
       },
     );
   }
-
 }

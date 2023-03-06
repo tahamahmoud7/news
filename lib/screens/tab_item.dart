@@ -12,14 +12,14 @@ class TabItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
       decoration: BoxDecoration(
-        color: isSelected ? Colors.green : Colors.transparent,
+        color: isSelected ? Colors.black : Colors.transparent,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.green),
+        border: Border.all(color: Colors.black),
       ),
       child: Text(sources.name ?? "",
-          style: TextStyle(color: isSelected ? Colors.white : Colors.green)),
+          style: TextStyle(color: isSelected ? Colors.white : Colors.black)),
     );
   }
 }

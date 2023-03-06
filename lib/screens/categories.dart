@@ -6,7 +6,7 @@ import 'package:news/screens/category_item.dart';
 class CategoriesScreen extends StatelessWidget {
 
   Function onCategorySelect;
-  CategoriesScreen(this.onCategorySelect);
+  CategoriesScreen(this.onCategorySelect, {super.key});
 
   @override
   Widget build(BuildContext context) {

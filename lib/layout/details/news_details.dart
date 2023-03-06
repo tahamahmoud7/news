@@ -12,7 +12,7 @@ class NewsDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     var articles = ModalRoute.of(context)?.settings.arguments as Articles;
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.green),
+      appBar: AppBar(backgroundColor: Colors.black),
       body: Column(children: [
         Container(
           margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
@@ -20,7 +20,7 @@ class NewsDetails extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               color: Colors.white,
-              border: Border.all(color: Colors.green)),
+              border: Border.all(color: Colors.black)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -29,7 +29,7 @@ class NewsDetails extends StatelessWidget {
                 height: 180,
                 placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(
-                  color: Colors.green,
+                  color: Colors.black,
                 )),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),

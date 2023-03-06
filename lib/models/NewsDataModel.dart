@@ -7,7 +7,9 @@ import 'SourcesResponse.dart';
 class NewsDataModel {
   NewsDataModel({
       this.status, 
-      this.totalResults, 
+      this.totalResults,
+    this.code,
+    this.message,
       this.articles,});
 
   NewsDataModel.fromJson(dynamic json) {

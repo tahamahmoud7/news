@@ -3,16 +3,16 @@ import 'package:news/models/categorieyData.dart';
 import '../screens/Drawar_screen.dart';
 import '../screens/categories.dart';
 import '../screens/home_screen.dart';
-import 'details/news_search.dart';
+import '../news_search/news_search.dart';
 
-class Home extends StatefulWidget {
+class HomeLayout extends StatefulWidget {
   static const String routeName = "Home";
 
   @override
-  State<Home> createState() => _HomeScreenState();
+  State<HomeLayout> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<Home> {
+class _HomeScreenState extends State<HomeLayout> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,7 +31,7 @@ class _HomeScreenState extends State<Home> {
                     },
                     icon: const Icon(Icons.search))
               ],
-              backgroundColor: const Color.fromRGBO(57, 165, 82, 1.0),
+              backgroundColor: const Color.fromRGBO(0, 0, 0, 1.0),
               shape: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.transparent),
                   borderRadius: BorderRadius.only(
@@ -47,7 +47,7 @@ class _HomeScreenState extends State<Home> {
     );
   }
 
-  CategoryData? categoryData = null;
+  CategoryData? categoryData;
 
   void OnDrawarSelected(number) {
     if (number == DrawarScreen.CATEGORIES) {

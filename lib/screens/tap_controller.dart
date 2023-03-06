@@ -29,44 +29,51 @@ class _TapControllerScreenState extends State<TapControllerScreen> {
               isScrollable: true,
               onTap: (index) {
                 selectIndex = index;
-                setState(() {
-
-                });
+                setState(() {});
               },
               tabs: widget.sources
                   .map((source) => Tab(
-                        child: TabItem(
-                            source, widget.sources.indexOf(source) == selectIndex),
+                        child: TabItem(source,
+                            widget.sources.indexOf(source) == selectIndex),
                       ))
                   .toList(),
             )),
         FutureBuilder<NewsDataModel>(
-          future: ApiManager.getNewsData(widget.sources[selectIndex].id ?? ""),
+          future: ApiManager.getNewsData(sourceId: widget.sources[selectIndex].id ?? ""),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
-                  child: CircularProgressIndicator(color: Colors.green,));
+                  child: CircularProgressIndicator(
+                color: Colors.black,
+              ));
             }
             if (snapshot.hasError) {
-              return Column(children: [
-                Text(snapshot.data?.message ?? "Has Error"),
-                TextButton(onPressed: () {}, child:  Text("Try Again"))
-              ],);
+              return Column(
+                children: [
+                  Text(snapshot.data?.message ?? "Has Error"),
+                  TextButton(onPressed: () {}, child: const Text("Try Again"))
+                ],
+              );
             }
-            if(snapshot.data?.status!="ok"){
-              Column(children: [
-                Text(snapshot.data?.message ?? "Has Error"),
-                TextButton(onPressed: () {}, child: const Text("Try Again"))
-              ],);
+            if (snapshot.data?.status != "ok") {
+              Column(
+                children: [
+                  Text(snapshot.data?.message ?? "Has Error"),
+                  TextButton(onPressed: () {}, child: const Text("Try Again"))
+                ],
+              );
             }
-            var news=snapshot.data?.articles??[];
+            var news = snapshot.data?.articles ?? [];
             return Expanded(
-              child: ListView.builder(itemBuilder: (context, index) {
-                return NewsCard(news[index]);
-              },
-              itemCount: news.length,),
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return NewsCard(news[index]);
+                },
+                itemCount: news.length,
+              ),
             );
-          },)
+          },
+        )
       ],
     );
   }
